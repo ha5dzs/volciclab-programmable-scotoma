@@ -10,10 +10,6 @@ It uses the face expression API for blink detection and the eye tracker for reti
 
 It includes all the necessary workarounds and scripts so that it can work stand-alone. See the 'Scripts' directory for details. `Assets/Scripts/<script_name>.cs` is the script, and `Assets/Scripts/<script_name>.cs.md` is the corresponding documentation.
 
-Some of this code is AI generated. This shouldn't be surprising in 2026.
-
-Pinch detection must be done with `OvrHand.GetFingerIsPinching`
-
 ## If you start from scratch instead of using this project
 
 This project was built up this way too:
