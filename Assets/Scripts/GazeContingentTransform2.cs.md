@@ -81,7 +81,7 @@ The external script `ExternalScotomaDistanceAdjuster` (`Assets/Scripts/ExternalS
 * Per-eye eyelid state plus the mean — three public floats for the data sink
   * `LeftEyelidWeight` (float) — the current `OVRFaceExpressions` `EyesClosedL` weight: `0` = eye fully open, `1` = fully closed.
   * `RightEyelidWeight` (float) — the `EyesClosedR` weight, same scale.
-  * `EyelidMean` (float, computed property) — `(LeftEyelidWeight + RightEyelidWeight) / 2`, the single blink-state scalar the data transmitter streams.
+  * `EyelidMean` (float, computed property) — `(LeftEyelidWeight + RightEyelidWeight) / 2`, available for any consumer that wants a single blink-state scalar; `DataTransmitter` does NOT stream it — since 2026-11-09 it streams the two per-eye weights directly (`EyelidLeft`/`EyelidRight`), because a mean hides a one-eye-closed participant.
 
   These are the raw per-frame weights, exposed so the data sink can analyse blink onset/offset offline. They are deliberately independent of the internal `EyesAreClosedThreshold` gate: that gate decides whether this script updates the gaze for the current frame, but the sink wants the *weights* in every case — a closed eye is a meaningful signal, not a dropout, so the weights are recorded even on a closed-eye frame (≈1). While `Update()` bails early on an invalid frame (no valid eye gaze, low confidence, or invalid face data), the two fields **keep their last valid value** rather than collapsing to `0`; an invalid streak therefore reads as a flat line in the stream, not a spurious "eyes wide open" jump.
 
